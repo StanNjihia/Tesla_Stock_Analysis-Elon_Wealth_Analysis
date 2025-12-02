@@ -1,0 +1,9 @@
+Statistic,Value
+Number of Simulations,10000.0
+Probability of $1T (%),84.54
+Simulations Reaching $1T,8454.0
+Median Final Wealth ($B),1038.731160319141
+Mean Final Wealth ($B),1040.4457421225864
+5th Percentile ($B),920.1275347414619
+95th Percentile ($B),1169.4108010879431
+90% CI Width ($B),249.28326634648124
