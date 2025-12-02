@@ -1,7 +1,7 @@
 streamlit
 pandas
 numpy
-plotly
+plotly>=5.18.0
 openpyxl
 yfinance
 scikit-learn
