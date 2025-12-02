@@ -438,8 +438,12 @@ elif page == "🔮 Forecast & Scenarios":
     fig.add_hline(y=1000, line_dash="dot", line_color="gold", 
                   annotation_text="$1 Trillion Target", line_width=3)
     
-    fig.add_vline(x=merged_data.index[-1], line_dash="dot", 
-                  line_color="black", annotation_text="Forecast Start")
+    fig.add_vline(
+        x=merged_data.index[-1].timestamp() * 1000,  # Convert to milliseconds
+        line_dash="dot", 
+        line_color="black",
+        annotation_text="Forecast Start"
+    )
     
     fig.update_layout(
         xaxis_title="Date",
@@ -763,18 +767,23 @@ elif page == "🎲 Monte Carlo Results":
                 "Best case"
             )
     else:
-        final_median = monte_carlo['P50'].iloc[-1]
-        final_95 = monte_carlo['P95'].iloc[-1]
-        prob = params['monte_carlo_probability']
-        
-        with col1:
-            st.metric("Probability of $1T", f"{prob:.1f}%")
-        with col2:
-            st.metric("Median Final Wealth", f"${final_median:.1f}B")
-        with col3:
-            st.metric("95th Percentile", f"${final_95:.1f}B")
-        with col4:
-            st.metric("5th Percentile", f"${monte_carlo['P5'].iloc[-1]:.1f}B")
+        # FIX 2: Safely access DataFrame values
+        try:
+            final_median = float(monte_carlo['P50'].iloc[-1])
+            final_95 = float(monte_carlo['P95'].iloc[-1])
+            final_5 = float(monte_carlo['P5'].iloc[-1])
+            prob = params['monte_carlo_probability']
+            
+            with col1:
+                st.metric("Probability of $1T", f"{prob:.1f}%")
+            with col2:
+                st.metric("Median Final Wealth", f"${final_median:.1f}B")
+            with col3:
+                st.metric("95th Percentile", f"${final_95:.1f}B")
+            with col4:
+                st.metric("5th Percentile", f"${final_5:.1f}B")
+        except Exception as e:
+            st.error(f"Error displaying metrics: {str(e)}")
     
     st.markdown("---")
     
