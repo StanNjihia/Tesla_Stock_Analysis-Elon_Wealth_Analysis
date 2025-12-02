@@ -74,7 +74,10 @@ st.sidebar.title("🎯 Navigation")
 page = st.sidebar.radio("Select Page", [
     "📊 Executive Summary",
     "📈 Historical Analysis", 
+    "🔮 Forecast & Scenarios",
     "🎯 Trillionaire Timeline",
+    "🎲 Monte Carlo Results",
+    "⚙️ Interactive Calculator"
 ])
 
 st.sidebar.markdown("---")
